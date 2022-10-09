@@ -10,6 +10,7 @@ export default function DetallePokemones() {
 
     const [datospoke, setDatospoke] = useState([]);
     const [img, setImg] = useState("");
+    const [tipo, setTipo] = useState([]);
     const { name } = useParams();
     
     const consultarPokemon = async () => {
@@ -21,7 +22,8 @@ export default function DetallePokemones() {
         const getDatos = data.stats
         setDatospoke(getDatos)
         setImg(data.sprites.other.dream_world)
-
+        setTipo(data.types)
+        console.log(data.types)
       }
     
       useEffect(() => {
@@ -31,7 +33,8 @@ export default function DetallePokemones() {
       }, [])
 
     return (
-        <div className="form-cont-card">
+        <div className="cont">
+            <div className="form-cont-card">
             <div className="form-cont-img-card">
                 <Card.Img className="form-img-card" variant="top" src={img.front_default} />
             </div>
@@ -42,7 +45,11 @@ export default function DetallePokemones() {
                     <ListGroup.Item key={e.name} >{e.stat.name}: {e.base_stat}</ListGroup.Item>
                 </ListGroup>
                 ))}
+                {tipo.map((t) => (
+                    <h6>Tipo: {t.type.name}</h6>
+                ))}
             </Card.Body>
+            </div>
         </div>
         
 
